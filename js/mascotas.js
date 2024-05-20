@@ -1,4 +1,9 @@
 const listaMascotas = document.getElementById("lista-mascotas");
+const tipo = document.getElementById("tipo");
+const nombre = document.getElementById("nombre");
+const propietario = document.getElementById("propietario");
+const form = document.getElementById("form");
+const btnGuardar = document.getElementById("btn-guardar");
 
 let mascotas = [
     {   tipo: "Gato",
@@ -24,4 +29,17 @@ function listarMascotas(){
   listaMascotas.innerHTML = htmlMascotas;
 }
 
+function enviarDatos(evento){
+    evento.preventDefault();
+    const datos = {
+        tipo: tipo.value,
+        nombre: nombre.value,
+        propietario: propietario.value
+    };
+    mascotas.push(datos);
+    listarMascotas();
+}
+
 listarMascotas();
+form.onsubmit = enviarDatos;
+btnGuardar.onclick = enviarDatos;
