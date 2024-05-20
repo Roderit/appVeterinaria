@@ -4,6 +4,7 @@ const nombre = document.getElementById("nombre");
 const propietario = document.getElementById("propietario");
 const form = document.getElementById("form");
 const btnGuardar = document.getElementById("btn-guardar");
+const index = document.getElementById("indice");
 
 let mascotas = [
     {   tipo: "Gato",
@@ -21,12 +22,13 @@ function listarMascotas(){
     <td>${mascota.propietario}</td>
     <td>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-info editar" data-indice=${indice}><i class="fa fa-pencil"></i></button>
             <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
         </div>
     </td>
   </tr>`).join("");
   listaMascotas.innerHTML = htmlMascotas;
+  Array.from(document.getElementsByClassName('editar')).forEach((botonEditar)=>botonEditar.onclick=editar);
 }
 
 function enviarDatos(evento){
@@ -38,6 +40,10 @@ function enviarDatos(evento){
     };
     mascotas.push(datos);
     listarMascotas();
+}
+
+function editar(e){
+    console.log('editar', e);
 }
 
 listarMascotas();
