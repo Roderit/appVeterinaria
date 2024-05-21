@@ -38,23 +38,44 @@ function listarMascotas(){
 
 function enviarDatos(evento){
     evento.preventDefault();
+    const accion = btnGuardar.innerHTML;
     const datos = {
         tipo: tipo.value,
         nombre: nombre.value,
         propietario: propietario.value
     };
-    mascotas.push(datos);
+    switch(accion){
+        case 'Editar':
+            //editar
+            mascotas[indice.value] = datos;
+            break;
+        default:
+            //crear
+            mascotas.push(datos);
+    }
+    
     listarMascotas();
+    resetModal();
 }
 
 function editar(indice){
     return function handler(){
+        btnGuardar.innerHTML = 'Editar'
+        $('exampleModalCenter').modal('toggle');
         const mascota = mascotas[indice];
         nombre.value = mascota.nombre;
         propietario.value = mascota.propietario;
         tipo.value = mascota.tipo;
         index.value = indice;
     }
+}
+
+function resetModal(){
+    nombre.value = "Nombre";
+    propietario.value = "Propietario";
+    tipo.value = "Tipo animal";
+    index.value = "";
+    btnGuardar.innerHTML = 'Guardar';
 }
 
 listarMascotas();
