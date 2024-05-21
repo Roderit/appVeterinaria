@@ -10,6 +10,10 @@ let mascotas = [
     {   tipo: "Gato",
         nombre: "Manchas",
         propietario: "Esteban"
+    },
+    {   tipo: "Ave",
+        nombre: "Kiko",
+        propietario: "Mark"
     }
 ];
 
@@ -22,13 +26,14 @@ function listarMascotas(){
     <td>${mascota.propietario}</td>
     <td>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-info editar" data-indice=${indice}><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn btn-info editar" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-pencil"></i></button>
             <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
         </div>
     </td>
   </tr>`).join("");
   listaMascotas.innerHTML = htmlMascotas;
-  Array.from(document.getElementsByClassName('editar')).forEach((botonEditar)=>botonEditar.onclick=editar);
+  Array.from(document.getElementsByClassName('editar')).forEach((botonEditar, index)=>botonEditar.onclick=editar(index));
+
 }
 
 function enviarDatos(evento){
@@ -42,8 +47,14 @@ function enviarDatos(evento){
     listarMascotas();
 }
 
-function editar(e){
-    console.log('editar', e);
+function editar(indice){
+    return function handler(){
+        const mascota = mascotas[indice];
+        nombre.value = mascota.nombre;
+        propietario.value = mascota.propietario;
+        tipo.value = mascota.tipo;
+        index.value = indice;
+    }
 }
 
 listarMascotas();
